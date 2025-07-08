@@ -6,7 +6,7 @@
 /*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:44:20 by olarseni          #+#    #+#             */
-/*   Updated: 2025/07/08 17:57:31 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:31:52 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	main(int argc, char **argv)
 	while(1)
 	{
 		cmd = readline("minishell> ");
-		add_history(cmd);
+		if (cmd != NULL && cmd[0] != 0)
+			add_history(cmd);
 		printf("Comando: %s\n", cmd);
 		rl_on_new_line();
 		free(cmd);
