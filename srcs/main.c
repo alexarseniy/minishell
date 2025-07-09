@@ -6,7 +6,7 @@
 /*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:44:20 by olarseni          #+#    #+#             */
-/*   Updated: 2025/07/08 18:31:52 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:58:42 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+
+int	start(const char *cmd)
+{
+	void *exec_tree;
+
+	exec_tree = parsing(cmd);
+	exec(exec_tree);
+	return (-1);
+}
 
 int	main(int argc, char **argv)
 {
@@ -23,9 +32,11 @@ int	main(int argc, char **argv)
 	while(1)
 	{
 		cmd = readline("minishell> ");
+		if (cmd == NULL || cmd[0] = 0)
+			continue ;
 		if (cmd != NULL && cmd[0] != 0)
 			add_history(cmd);
-		printf("Comando: %s\n", cmd);
+		start(cmd);
 		rl_on_new_line();
 		free(cmd);
 		cmd = NULL;
