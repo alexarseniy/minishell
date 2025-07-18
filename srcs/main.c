@@ -39,7 +39,7 @@ int	start_shell(t_shell *sh)
 
 int	free_shell(t_shell *sh)
 {
-	free(shell);
+	free(sh);
 	return (0);
 }
 
