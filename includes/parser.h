@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/30 11:40:57 by olarseni          #+#    #+#             */
-/*   Updated: 2025/08/30 12:23:29 by olarseni         ###   ########.fr       */
+/*   Created: 2025/08/30 15:27:40 by olarseni          #+#    #+#             */
+/*   Updated: 2025/08/30 16:02:28 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#ifndef PARSER_H
+# define PARSER_H
 
-void	ft_signal_handler(int sig);
-void	ft_setup_signals(void);
-void	ft_default_signals(void);
+typedef enum e_tkn_type
+{
+	WORD;
+	PIPE;
+	REDIR_IN;
+	REDIR_OUT;
+	REDIR_APPEND;
+	HEREDOC;
+} t_tkn_type;
+
+typedef struct s_token
+{
+	char		*token;
+	t_tkn_type	type;
+} t_token;
 
 #endif

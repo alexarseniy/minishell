@@ -6,7 +6,7 @@
 /*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 22:52:54 by olarseni          #+#    #+#             */
-/*   Updated: 2025/08/30 12:14:58 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:21:32 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 static void	ft_main_loop(t_env *env)
 {
+	char	*cmd;
+
 	(void)env;
 	while (true)
 	{
-		readline("\33[38;5;65mminishell:\33[0m ");
+		cmd = readline(PROMPT);
+		add_history(cmd);
 		rl_on_new_line();
-
+		//haz algo con cmd
+		free(cmd);
 	}
+	rl_clear_history();
 	return ;
 }
 
