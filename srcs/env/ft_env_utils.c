@@ -6,13 +6,14 @@
 /*   By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 04:10:51 by olarseni          #+#    #+#             */
-/*   Updated: 2025/08/29 05:44:29 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/08/30 11:24:32 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 t_env	*ft_new_env(char *key, char *value)
 {
@@ -22,7 +23,13 @@ t_env	*ft_new_env(char *key, char *value)
 	if (!new)
 		return (NULL);
 	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
+	if (!value || !*value)
+		new->is_exported = false;
+	else
+	{
+		new->value = ft_strdup(value);
+		new->is_exported = true;
+	}
 	new->next = NULL;
 	if (!key || !value)
 		return (free(new->key), free(new->value), free(new), NULL);

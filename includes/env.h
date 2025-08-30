@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 02:03:38 by olarseni          #+#    #+#             */
-/*   Updated: 2025/08/29 05:52:11 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/08/30 01:53:02 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ char	**ft_env_to_arr(t_env *env);
 int		ft_envlst_addback(t_env **lst, t_env *node);
 t_env	*ft_new_env(char *key, char *value);
 t_env	*ft_lst_last(t_env *lst);
-void	print_env(t_env *lst);
+void	ft_print_env(t_env *lst);
 
 #endif

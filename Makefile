@@ -6,7 +6,7 @@
 #    By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 20:39:53 by olarseni          #+#    #+#              #
-#    Updated: 2025/08/29 05:48:12 by olarseni         ###   ########.fr        #
+#    Updated: 2025/08/30 11:49:37 by olarseni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,14 @@ NAME	=	minishell
 
 
 # Sources with VPATH
-VPATH	=	srcs srcs/env
+VPATH	=	srcs srcs/env srcs/signals
 SRCS	=	main.c				\
 			ft_env_init.c		\
 			ft_env_utils.c		\
 			ft_env_to_arr.c		\
 			ft_getset_env.c		\
-			ft_unset_env.c
+			ft_unset_env.c		\
+			ft_signals.c
 
 # Objects
 ODIR	=	objects

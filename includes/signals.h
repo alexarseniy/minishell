@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 23:06:47 by olarseni          #+#    #+#             */
-/*   Updated: 2025/08/30 12:14:50 by olarseni         ###   ########.fr       */
+/*   Created: 2025/08/30 11:40:57 by olarseni          #+#    #+#             */
+/*   Updated: 2025/08/30 11:51:08 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdbool.h>
-// CUSTOM INCLUDES
-# include "libft.h"
-# include "env.h"
-# include "signals.h"
+void ft_signal_handler(int sig);
+void ft_setup_signals(void);
+void ft_default_signals(void);
 
 #endif
