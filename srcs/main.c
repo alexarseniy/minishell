@@ -6,7 +6,7 @@
 /*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 22:52:54 by olarseni          #+#    #+#             */
-/*   Updated: 2025/08/30 15:21:32 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/01 19:04:03 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	ft_main_loop(t_env *env)
 		cmd = readline(PROMPT);
 		add_history(cmd);
 		rl_on_new_line();
-		//haz algo con cmd
+		// parse cmd
+		// execute cmd
 		free(cmd);
 	}
 	rl_clear_history();
