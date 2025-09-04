@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:27:40 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/04 16:10:55 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:41:33 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 typedef enum e_tkn_type
 {
+	NONE,
 	WORD,
 	PIPE,
 	REDIR_IN,
