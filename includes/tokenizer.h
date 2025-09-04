@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:27:40 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/02 17:30:40 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/04 16:10:55 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef TOKENIZER_H
+# define TOKENIZER_H
 
 typedef enum e_tkn_type
 {
@@ -40,9 +40,10 @@ typedef struct t_tkn_part
 
 typedef struct s_token
 {
-	char	*operation;
-	t_part	*tkn_parts;
-	t_tkn_type	type;
+	char			*value;
+	t_part			*tkn_parts;
+	t_tkn_type		type;
+	struct s_token	*next;
 } t_token;
 
 
