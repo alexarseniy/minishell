@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 19:04:29 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/04 17:41:25 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/12 22:21:18 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_token	*ft_tokenize(char *cmd)
 	char	*word;
 
 	token_lst = NULL;
-	while (cmd)
+	while (cmd && *cmd)
 	{
 		word = ft_tkn_get_word(cmd);
 		if (!word || ft_tkn_addback(&token_lst, ft_tkn_new(word)))
@@ -43,7 +43,7 @@ t_token	*ft_tokenize(char *cmd)
 	return (token_lst);
 }
 
-/** TODO
+/** 
  * @brief indentify a word and return a new string for this word
  * Definition for the WORD:
  *		-> Any alphanumeric combination separated by spaces or other words
@@ -59,18 +59,56 @@ t_token	*ft_tokenize(char *cmd)
  */
 static char	*ft_tkn_get_word(const char *cmd)
 {
-	char	*word;
-	char	*start;
-	char	*end;
-	bool	is_quoted;
+	char		*start;
+	t_tkn_type	tkn;
+	bool		is_quoted;
 
+	if (!cmd)
+		return (NULL);
+	is_queted = false;
+	while (ft_isspace(*cmd))
+		cmd++;
 	start = cmd;
-	end = cmd;
-	while (end && *end && (*end != ft_isspace(*end) || is_quted))
+	tkn = ft_get_tkn_type(cmd);
+	if (tkn == HEREDOC || tkn == REDIR_APPEND)
+		return (ft_substr(cmd, 0, 2));
+	if (tkn == PIPE || tkn == REDIR_IN || tkn == REDIR_OUT)
+		return (ft_substr(cmd, 0, 1));
+	if (*cmd == '\'' || *cmd == '\"')
+		is_quoted = true;
+	while (*cmd && !ft_isspace(*cmd) && (is_quoted || ft_isalnum(*cmd)
+			|| (*cmd == '=')))
 	{
-		
+		if (*cmd == '\'' || *cmd == '\"')
+			is_quoted ^= true;
+		cmd++;
 	}
-	return (ft_substr(start, 0, end - start - 1));
+	return (ft_substr(start, 0, cmd - start - 1));
+}
+
+static t_tkn_type	ft_get_tkn_type(char *str)
+{
+	if (!str)
+		return (NONE);
+	if (*str == '>' && *(str + 1) && *(str + 1) == '>')
+		return (REDIR_APPEND);
+	if (*str == '<' && *(str + 1) && *(str + 1) == '<')
+		return (HEREDOC);
+	if (*str == '<')
+		return (REDIR_IN);
+	if (*str == '>')
+		return (REDIR_OUT);
+	if (*str == '|')
+		return (PIPE);
+	if (*str == '\"' || *str == '\'')
+		return (WORD);
+	if (ft_isalpha(*str) && ft_strchr(str, '=') && (!ft_strchr(str, '\'')
+			|| !ft_strchr(str, '\"')))
+		return (ASSIGNMENT);
+	if (ft_isalnum(*str))
+		return (WORD);
+	else
+		return (NONE);
 }
 
 /** TODO
@@ -89,7 +127,7 @@ int	ft_tkn_addback(ft_token **token_lst, ft_token *token_new)
 		return (1);
 	first_tkn = *token_lst;
 	while (*token_lst && (*token_lst)->next)
-		(*token_lst)=(*token_lst)->next;
+		(*token_lst) = (*token_lst)->next;
 	if (!(*token_lst))
 		(*token_lst) = token_new;
 	else
@@ -116,13 +154,13 @@ t_token	*ft_tkn_new(char *word)
 	return (new_tkn);
 }
 
-
 /** TODO
  *
  */
 void	ft_free_tokens(t_tokens *tokens)
 {
 	t_token	*aux;
+
 	while (token)
 	{
 		aux = tokens;
