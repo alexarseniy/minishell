@@ -1,33 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset_env.c                                     :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 05:25:38 by olarseni          #+#    #+#             */
-/*   Updated: 2025/08/29 05:31:08 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/15 01:27:33 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/21 22:55:33 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-
-void	ft_unset_env(t_env **env, char *key)
+int	ft_isspace(unsigned char c)
 {
-	t_env	*node;
-	t_env	*aux;
-
-	if (!env || !key || !*env)
-		return ;
-	node = ft_get_env(*env, key);
-	if (!node)
-		return ;
-	aux = (*env);
-	while (aux != node && aux->next != node)
-		aux = aux->next;
-	aux->next = node->next;
-	node->next = NULL;
-	free(node->key);
-	free(node->value);
-	free(node);
+	return (c == ' ' || (c >= '\t' && c <= '\r'));
 }

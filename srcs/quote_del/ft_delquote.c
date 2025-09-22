@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_delquote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 01:15:18 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/20 12:01:51 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/21 23:06:16 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/21 23:06:22 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(const char *s, const int fd)
+void	ft_delquote(t_sh *shell)
 {
-	while (*s)
-		ft_putchar_fd(*s++, fd);
+	(void)shell;
 }

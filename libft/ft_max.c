@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_max.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 01:15:18 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/20 12:01:51 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/18 17:53:38 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/18 17:54:24 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(const char *s, const int fd)
+int	ft_max(int a, int b)
 {
-	while (*s)
-		ft_putchar_fd(*s++, fd);
+	if (a > b)
+		return (a);
+	return (b);
 }

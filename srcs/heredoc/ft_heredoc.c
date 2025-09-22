@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/30 11:40:57 by olarseni          #+#    #+#             */
-/*   Updated: 2025/08/30 12:23:29 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/21 23:07:42 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/21 23:08:20 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#include "minishell.h"
 
-void	ft_signal_handler(int sig);
-void	ft_setup_signals(void);
-void	ft_default_signals(void);
-
-#endif
+void	ft_heredoc(t_sh *shell)
+{
+	(void)shell;
+}

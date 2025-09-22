@@ -6,7 +6,7 @@
 #    By: olarseni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/25 01:42:05 by olarseni          #+#    #+#              #
-#    Updated: 2025/02/01 23:39:23 by olarseni         ###   ########.fr        #
+#    Updated: 2025/09/18 17:55:38 by olarseni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,10 @@ SRCS	=	ft_isalpha.c\
 			ft_putnbr_fd.c\
 			get_next_line.c\
 			get_next_line_utils.c\
-			ft_free_matrix.c
+			ft_free_matrix.c\
+			ft_isspace.c\
+			ft_min.c\
+			ft_max.c
 
 
 # Headers

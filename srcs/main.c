@@ -3,45 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 22:52:54 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/12 22:09:30 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/21 14:28:27 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/22 04:15:20 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_main_loop(t_env *env, char **argv)
+static int	main_cmd(t_sh *shell, char *input)
 {
-	char	*cmd;
+	const t_err_wrap	*f = shell->err_wrap;
 
-	(void)env;
-	cmd = NULL;
-	while (true)
+	if (!shell)
+		return (ERROR);
+	if (!input)
+		return (ERR_NO_INPUT);
+	shell->input = ft_strdup(input);
+	if (!shell->input)
+		return (ERR_STRDUP_ERR);
+	while (!shell->err && *f)
 	{
-		if (!ft_strcmp(argv[1], "-c"))
-			cmd = ft_strdup(argv[2]);
-		else
-			cmd = readline(PROMPT);
-		add_history(cmd);
-		rl_on_new_line();
-		// parse cmd
-		// execute cmd
-		free(cmd);
+		shell->err = (*f)(shell);
+		f++;
 	}
-	rl_clear_history();
-	return ;
+	return (shell->err);
 }
 
-int	main(int argc, char **argv, char **envp)
+static void	main_loop(t_sh *shell, int argc, char **argv)
 {
-	t_env	*env;
+	int	i;
 
-	(void)argc, (void)argv;
-	env = ft_init_env(envp);
-	ft_setup_signals();
-	ft_main_loop(env, argv);
-	ft_free_env(env);
-	return (0);
+	if (!shell->interactive_mode)
+	{
+		if (argc > 2 && argv[2] && main_cmd(shell, argv[2]))
+			ft_exit_err(shell);
+		return ;
+	}
+	while (1)
+	{
+		//ft_sig_setup();
+		ft_get_input(shell);
+		i = 0;
+		while (!shell->err && shell->err_wrap[i])
+			shell->err_wrap[i++](shell);
+		if (shell->err)
+			ft_print_err(shell);
+		ft_clean(shell);
+	}
+}
+
+int	main(int argc, char **argv, char *envp[])
+{
+	t_sh	shell;
+
+	ft_setup_shell(&shell, argc, argv, envp);
+	if (shell.err)
+		ft_exit_err(&shell);
+	main_loop(&shell, argc, argv);
+	return (ft_print_err(&shell), ft_clean_all(&shell), shell.err);
 }

@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env_to_arr.c                                    :+:      :+:    :+:   */
+/*   ft_get_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 20:18:14 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/21 21:16:50 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/21 20:30:29 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/21 22:52:03 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-char	**ft_env_to_arr(t_env *env)
+char	*ft_get_env(t_env *env, char *key)
 {
-	char	**result;
-	int		env_len;
-	char	*char_aux;
+	int	key_len;
 
+	if (!env || !key)
+		return (NULL);
+	key_len = ft_strlen(key);
+	while (env && (ft_strncmp(env->key, key, key_len)
+			|| key_len != (int)ft_strlen(env->key)))
+		env = env->next;
 	if (!env)
 		return (NULL);
-	env_len = ft_get_env_len(env);
-	result = ft_calloc(sizeof(char *), env_len + 1);
-	env_len = 0;
-	while (env)
-	{
-		char_aux = ft_strjoin(env->key, "=");
-		if (!char_aux)
-			return (NULL);
-		result[env_len] = ft_strjoin(char_aux, env->value);
-		if (!result[env_len])
-			return (free(char_aux), NULL);
-		env = env->next;
-		env_len++;
-	}
-	return (result);
+	return (env->value);
 }

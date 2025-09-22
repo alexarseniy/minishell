@@ -6,16 +6,11 @@
 /*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 22:39:28 by olarseni          #+#    #+#             */
-/*   Updated: 2024/10/06 22:21:02 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/15 01:31:52 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_isspace(unsigned char c)
-{
-	return (c == ' ' || (c >= '\t' && c <= '\r'));
-}
 
 int	ft_atoi(const char	*nptr)
 {

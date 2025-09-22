@@ -3,36 +3,52 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+         #
+#    By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/20 20:39:53 by olarseni          #+#    #+#              #
-#    Updated: 2025/08/30 11:49:37 by olarseni         ###   ########.fr        #
+#    Created: 2025/09/13 16:40:07 by olarseni          #+#    #+#              #
+#    Updated: 2025/09/22 04:17:07 by olarseni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-################################################################################
-#                                 DEFINITIONS                                  #
-################################################################################
+# ============================================================================= #
+# 									Variables
+# ============================================================================= #
 
 # Program name
 NAME	=	minishell
 
-
-# Sources with VPATH
-VPATH	=	srcs srcs/env srcs/signals
-SRCS	=	main.c				\
-			ft_env_init.c		\
-			ft_env_utils.c		\
-			ft_env_to_arr.c		\
-			ft_getset_env.c		\
-			ft_unset_env.c		\
-			ft_signals.c
+# Sources
+VPATH	=	srcs srcs/env srcs/error srcs/utils srcs/expansor srcs/lexer srcs/parser \
+			srcs/quote_del srcs/signal srcs/executor srcs/heredoc
+SRCS	=	main.c					\
+			ft_arr_to_env.c			\
+			ft_env_addback.c		\
+			ft_env_basic_utils.c	\
+			ft_env_new.c			\
+			ft_env_to_arr.c			\
+			ft_get_env.c			\
+			ft_set_env.c			\
+			errors.c				\
+			ft_err_wrap_01.c		\
+			ft_err_wrap_02.c		\
+			ft_clean.c				\
+			ft_clean_utils.c		\
+			minishell_setup_utils.c	\
+			ft_lexer.c				\
+			ft_parser.c				\
+			ft_execute.c			\
+			ft_expand.c				\
+			ft_heredoc.c			\
+			ft_delquote.c			\
+			ft_handlers.c			\
+			ft_lexer_utils_01.c		\
+			ft_tkn_utils.c
 
 # Objects
 ODIR	=	objects
 OBJS	=	$(SRCS:%.c=$(ODIR)/%.o)
 
-# Includes
+# includes
 IDIR	=	includes
 
 # LIBFT
@@ -41,56 +57,38 @@ LIBFT	=	libft.a
 LPRINTF	=	libft/ft_printf/includes
 
 # Compiler
-CC		=	cc
+CC	=	cc
 
-# Flags
-CFLAGS	=	-Wall -Wextra -Werror -g
+# FLAGS
+CFLAGS	=	-Wall -Werror -Wextra
 IFLAGS	=	-I$(IDIR) -I$(LDIR) -I$(LPRINTF)
 LFLAGS	=	-L$(LDIR) -lft -lreadline
+SANITIZE=	-fsanitize=address
+LIBSAN	=	-static-libsan
+DEBUG	=	-g
 
-################################################################################
-#                                  COLORS                                      #
-################################################################################
-
-RESET	=	\033[0m
-LGREEN	=	\033[38;5;150m
-CYAN	=	\033[38;5;195m
-DRED	=	\033[38;5;124m
-RED		=	\033[38;5;160m
-SAND	=	\033[38;5;222m
-LPURPLE	=	\033[38;5;104m
-
-################################################################################
-#                                 FONT STYLES                                  #
-################################################################################
-
-BOLD	=	\033[1m
-FAINT	=	\033[2m
-ITALIC	=	\033[3m
-UNDERL	=	\033[4m
-BLINK	=	\033[5m
-
-################################################################################
-#                                   RULES                                      #
-################################################################################
+# ============================================================================= #
+# 									RULES										#
+# ============================================================================= #
 
 all: $(NAME)
 
 $(ODIR)/%.o: %.c | $(ODIR)
-	@$(CC) $(CFLAGS) $(IFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(IFLAGS) -o $@ -c $<  $(DEBUG) $(SANITIZE)
 
 $(NAME): $(OBJS)
-	@make --silent header
-	@make --silent compile
-	@$(CC) $(CFLAGS) $(IFLAGS) -o $@ $^ $(LFLAGS)
-	@echo "$(LGREEN)$(BOLD)COMPILATION FINISHED $(RESET)🎉"
-	@make --silent footer
+	@make --silent -C $(LDIR) $(LIBFT)
+	@$(CC) $(CFLAGS) $(IFLAGS) -o $@ $^ $(LFLAGS) $(DEBUG) $(SANITIZE) $(LIBSAN)
+
+debug: $(DOBJS)
+	@make --silent -C $(LDIR) $(LIBFT)
+	@$(CC) $(CFLAGS) $(IFLAGS) -o $(NAME) $^ $(LFLAGS) 
 
 $(LIBFT):
 	@make --silent -C $(LDIR)
 
 $(ODIR):
-	@mkdir -p $@
+	@mkdir -p $(ODIR)
 
 clean:
 	@rm -rf $(ODIR)
@@ -102,85 +100,4 @@ fclean: clean
 
 re: fclean all
 
-header:
-	@echo "$$ascii_art"
-	@sleep 0.2
-	@echo "$(FAINT)$(CYAN)$(line)$(RESET)"
-	@echo "\t\t\t$(SAND)$(FAINT)$(ITALIC)WELCOME TO $(DRED)$(BOLD)$(NAME)$(RESET) $(SAND)$(FAINT)$(ITALIC)PROGRAM$(RESET)"
-	@echo "$(FAINT)$(CYAN)$(line)$(RESET)"
-	
-footer:
-	@echo "$(FAINT)$(CYAN)$(line)$(RESET)"
-	@echo "$(LPURPLE)$(BOLD)Compiled by:$(RESET) $(CYAN)$$USER$(RESET)"
-	@echo "$(LPURPLE)$(BOLD)Compiled date:$(RESET) $(CYAN)$(shell date '+%d/%m/%Y %H:%M:%S')$(RESET)"
-	@echo "$(FAINT)$(CYAN)$(line)$(RESET)"
-
-compile:
-	@echo "$(LGREEN)$(BOLD)$(FAINT)START COMPILATION: $(RESET)"
-	@sleep 0.1
-	@echo "$(LGREEN)$(FAINT)OBJS...$(RESET)"
-	@sleep 0.1
-	@echo "$(LGREEN)$(FAINT)LIBFT...$(RESET)"
-	@make --silent -C $(LDIR) $(LIBFT)
-	@sleep 0.1
-	@echo "$(LGREEN)$(FAINT)$(NAME)...$(RESET)"
-	@sleep 0.1
-
-.PHONY: all clean fclean re header
-
-################################################################################
-#                                 VARIABLES                                    #
-################################################################################
-
-# A simple line made with '='
-define line
-================================================================================
-endef
-
-export line
-
-# Footer ASCII art
-
-define ascii_art
-\033[38;5;144m
-
-                     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                   @@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                  @@@@@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                  @@@@@@@@@@@@@@@@@        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                 @@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                @@@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                @@@@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-               @@@@@@@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-               @@@@@@@@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@          @@@@@@@@@@@@@@@@@@@@@@@@@@@
-           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@          @@@@@@@@@@@@@@@@@@@@@@@@
-           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@          @@@@@@@@@@@@@@@@@@@@@@@
-          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@          @@@@@@@@@@@@@@@@@@@@
-         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@
-        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@          @@@@@@@@@@@@@@@@@@@@
-       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@          @@@@@@@@@@@@@@@@@@@@@@@
-      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@
-     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@@
-    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-   @@@@@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  @@@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- @@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@          @@@@@@@@@                 @@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@        @@@@@@@@@@                 @@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@   @@@@@@@@@@@@                 @@@@@@@@@@@
- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-
-endef
-
-export ascii_art
+.PHONY: all clean fclean re 

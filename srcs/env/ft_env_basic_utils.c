@@ -1,19 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_env_basic_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 01:15:18 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/20 12:01:51 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/21 20:28:48 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/21 21:15:41 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "env.h"
 
-void	ft_putstr_fd(const char *s, const int fd)
+int	ft_get_env_len(t_env *env)
 {
-	while (*s)
-		ft_putchar_fd(*s++, fd);
+	int	i;
+
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
+}
+
+t_env	*ft_last_env(t_env *env)
+{
+	if (!env)
+		return (NULL);
+	while (env->next)
+		env = env->next;
+	return (env);
 }

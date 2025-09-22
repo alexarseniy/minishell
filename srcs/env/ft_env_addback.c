@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_env_addback.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 01:15:18 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/20 12:01:51 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/21 21:07:42 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/21 22:51:32 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "env.h"
 
-void	ft_putstr_fd(const char *s, const int fd)
+int	ft_env_addback(t_env **lst, t_env *new)
 {
-	while (*s)
-		ft_putchar_fd(*s++, fd);
+	t_env	*aux;
+
+	if (!lst)
+		return (-1);
+	aux = *lst;
+	if (!aux)
+	{
+		*lst = new;
+		return (0);
+	}
+	aux = ft_last_env(aux);
+	aux->next = new;
+	return (0);
 }

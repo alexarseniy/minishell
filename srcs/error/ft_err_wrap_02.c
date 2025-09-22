@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_err_wrap_02.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olarseni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 01:15:18 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/20 12:01:51 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/21 18:32:29 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/21 23:02:52 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(const char *s, const int fd)
+t_error	wrap_execute(t_sh *shell)
 {
-	while (*s)
-		ft_putchar_fd(*s++, fd);
+	if (!shell)
+		return (ERROR);
+	if (shell->err)
+		return (shell->err);
+	ft_execute(shell);
+	return (shell->err);
 }
