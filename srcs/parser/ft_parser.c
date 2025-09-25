@@ -6,11 +6,12 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 23:04:58 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/22 08:23:25 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/25 19:15:17 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
 
 static int	ft_check_syntax(t_token *tkn)
 {
@@ -150,17 +151,24 @@ void	ft_cmd_add_redir(t_sh *sh, t_cmd *cmd, t_token *tkn, char *n_tkn_value)
 void	ft_cmd_add_assign(t_sh *sh, t_cmd *cmd, t_token *tkn)
 {
 	t_env	*result;
+	char	**aux;
 
-	result = ft_arr_to_env(&(tkn->value));
+	aux = ft_split(tkn->value, '\0');
+	result = ft_arr_to_env(aux);
 	if (!result)
 	{
 		sh->err = ERR_PARSER;
 		return ;
 	}
-	ft_set_env(cmd->env_tmp, result->key, result->value);
+	ft_set_env(&cmd->env_tmp, result->key, result->value);
 	free(result->key);
 	free(result->value);
+	result->key = NULL;
+	result->value = NULL;
 	free(result);
+	free(*aux);
+	*aux = NULL;
+	free(aux);
 }
 
 t_args *ft_args_last(t_args *lst)
@@ -256,15 +264,21 @@ t_cmd	*ft_parsing(t_sh *sh, t_token *tkn)
 static void	ft_set_assign_words(t_sh *sh, t_token *tkn)
 {
 	int	flag_word;
+	int	flag_redir;
 
 	flag_word = 0;
+	flag_redir = 0;
 	while (!sh->err && tkn && !flag_word)
 	{
-		if (tkn->type == TKN_WORD && (tkn->value[0] == '\''
+		if (!flag_redir && (tkn->value[0] == '>' || tkn->value[0] == '<'))
+			flag_redir = 1;
+		else if (!flag_redir && tkn->type == TKN_WORD && (tkn->value[0] == '\''
 				|| tkn->value[0] == '"' || !ft_strchr(tkn->value, '=')))
 			flag_word = 1;
-		else if (tkn->type == TKN_WORD)
+		else if (!flag_redir && tkn->type == TKN_WORD)
 			tkn->type = TKN_ASSIGN;
+		else
+			flag_redir = 0;
 		tkn = tkn->next;
 	}
 }

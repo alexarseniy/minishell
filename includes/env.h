@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:20:28 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/21 22:57:10 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:41:19 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ t_env	*ft_last_env(t_env *env);
 t_env	*ft_arr_to_env(char *envp[]);
 char	**ft_env_to_arr(t_env *env);
 char	*ft_get_env(t_env *env, char *key);
-int		ft_set_env(t_env *env, char *key, char *value);
+int		ft_set_env(t_env **env, char *key, char *value);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 23:03:11 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/22 04:13:58 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/25 19:18:25 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_token	*ft_tokenize(t_sh *sh, char *input)
 	{
 		if (ft_isspace(input[i]))
 			i++;
-		if (ft_is_operator(input[i]) && ft_is_valid_op(input, i))
+		else if (ft_is_operator(input[i]) && ft_is_valid_op(input, i))
 			ft_handle_operator(&tkn, input, &i, sh);
 		else if (!ft_is_operator(input[i]))
 			ft_handle_word(&tkn, input, &i, sh);

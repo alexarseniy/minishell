@@ -6,13 +6,13 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 20:50:47 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/21 21:02:59 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:40:37 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int	ft_set_env(t_env *env, char *key, char *value)
+int	ft_set_env(t_env **env, char *key, char *value)
 {
 	t_env	*new;
 
@@ -24,6 +24,6 @@ int	ft_set_env(t_env *env, char *key, char *value)
 		new = ft_env_new(key, value);
 	if (!new)
 		return (-1);
-	ft_env_addback(&env, new);
+	ft_env_addback(env, new);
 	return (0);
 }

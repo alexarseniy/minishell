@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 20:05:27 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/22 00:06:48 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:22:14 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ static char	*ft_get_env_value(char *env)
 	if (!env)
 		return (NULL);
 	env++;
-	while (env && env[i])
-		i++;
 	if (!env[i])
 		result = ft_strdup("");
 	else
-		result = ft_substr(env, 0, i);
+		result = ft_substr(env, 0, ft_strlen(env) + 1);
 	return (result);
 }
 
