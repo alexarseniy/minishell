@@ -14,13 +14,18 @@
 
 void	ft_expansor(t_sh *shell)
 {
-	const void	(*f)(t_sh *)[] = {expand_args, expand_env, expand_redirs,
-		expand_cmd_name, NULL};
+	t_cmd		*cmd;
 	int			i;
+	const void	(*f)(t_sh *, t_cmd *)[] = {expand_args, expand_env,
+		expand_redirs, expand_cmd_name, NULL};
 
 	if (!shell || !shell->cmd_lst)
 		return ;
-	i = 0;
-	while (!shell->err && f[i])
-		f[i++](shell);
+	cmd = shell->cmd_lst;
+	while (start)
+	{
+		i = 0;
+		while (!shell->err && f[i])
+			f[i++](shell, cmd);
+	}
 }

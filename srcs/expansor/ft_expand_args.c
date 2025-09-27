@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-void	expand_args(t_sh *shell)
+void	expand_args(t_sh *shell, t_cmd *cmd)
 {
 	t_args	*args;
 	char	*aux;
 
-	if (!shell || !shell->cmd_lst)
+	if (!shell || !cmd)
 		return ;
-	args = shell->cmd_lst->args;
+	args = cmd->args;
 	while (args)
 	{
 		if (ft_has_expand(args->value))

@@ -195,6 +195,9 @@ void			    expand_redirs(t_sh *shell);
 void				expand_cmd_name(t_sh *shell);
 /* Expansor Utils */
 int					ft_has_expand(char *str);
+char *ft_get_env_value(t_sh *shell, char *str, int i);
+void    ft_realloc_expand(t_sh *shell, char **result, int *i);
+char    *ft_expand(t_sh *shell, char *str);
 
 /* Tokens utils */
 void				ft_tkn_addback(t_token **lst, t_token *new);

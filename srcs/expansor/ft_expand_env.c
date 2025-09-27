@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-static void	expand_env_key(t_sh *shell)
+static void	expand_env_key(t_sh *shell, t_cmd *cmd)
 {
 	t_env	*env;
 	char	*aux_key;
 
-	if (!shell || !shell->cmd_lst)
+	if (!shell || !cmd)
 		return ;
-	env = shell->cmd_lst->env_tmp;
+	env = cmd->env_tmp;
 	while (!shell->err && env)
 	{
 		if (ft_has_expand(env->key))
@@ -37,14 +37,14 @@ static void	expand_env_key(t_sh *shell)
 	}
 }
 
-static void	expand_env_value(t_sh *shell)
+static void	expand_env_value(t_sh *shell, t_cmd *cmd)
 {
 	t_env	*env;
 	char	*aux_value;
 
-	if (!shell || !shell->cmd_lst)
+	if (!shell || !cmd)
 		return ;
-	env = shell->cmd_lst->env_tmp;
+	env = cmd->env_tmp;
 	while (env)
 	{
 		if (ft_has_expand(env->value))
@@ -62,15 +62,10 @@ static void	expand_env_value(t_sh *shell)
 	}
 }
 
-void	expand_env(t_sh *shell)
+void	expand_env(t_sh *shell, t_cmd *cmd)
 {
-	t_env	*env;
-	char	*aux_key;
-	char	*aux_value;
-
-	if (!shell || !shell->cmd_lst)
+	if (!shell || !cmd)
 		return ;
-	env = shell->cmd_lst->env_tmp;
-	ft_expand_env_key(&env);
-	ft_expand_env_value(&env);
+	ft_expand_env_key(shell, cmd);
+	ft_expand_env_value(shell, cmd);
 }

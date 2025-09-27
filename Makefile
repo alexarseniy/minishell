@@ -42,7 +42,13 @@ SRCS	=	main.c					\
 			ft_delquote.c			\
 			ft_handlers.c			\
 			ft_lexer_utils_01.c		\
-			ft_tkn_utils.c
+			ft_tkn_utils.c			\
+			ft_expand.c				\
+			ft_expand_utils.c		\
+			ft_expand_redirs.c		\
+			ft_expand_env.c			\
+			ft_expand_cmd_name.c	\
+			ft_expand_args.c	
 
 # Objects
 ODIR	=	objects

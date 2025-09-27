@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-void    expand_redirs(t_sh *shell)
+void    expand_redirs(t_sh *shell, t_cmd *cmd)
 {
 	t_redir *redirs;
 	char	*aux;
 
-	if (!shell || !shell->cmd_lst)
+	if (!shell || !cmd)
 		return ;
-	redirs = shell->cmd_lst->redirs;
+	redirs = cmd->redirs;
 	while (redirs)
 	{
 		if (ft_has_expand(redirs->file))

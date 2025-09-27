@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-void	expand_cmd_name(t_sh *shell)
+void	expand_cmd_name(t_sh *shell, t_cmd *cmd)
 {
     char    *cmd_name;
 	char	*aux;
 
 	if (!shell || !shell->cmd_lst)
 		return ;
-    cmd_name = shell->cmd_lst->cmd_name;
+    cmd_name = cmd->cmd_name;
 	if (ft_has_expand(cmd_name))
 	{
 		aux - ft_expand(cmd_name);
