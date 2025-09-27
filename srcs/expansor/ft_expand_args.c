@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand.c                                        :+:      :+:    :+:   */
+/*   ft_expand_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,15 +12,27 @@
 
 #include "minishell.h"
 
-void	ft_expansor(t_sh *shell)
+void	expand_args(t_sh *shell)
 {
-	const void	(*f)(t_sh *)[] = {expand_args, expand_env, expand_redirs,
-		expand_cmd_name, NULL};
-	int			i;
+	t_args	*args;
+	char	*aux;
 
 	if (!shell || !shell->cmd_lst)
 		return ;
-	i = 0;
-	while (!shell->err && f[i])
-		f[i++](shell);
+	args = shell->cmd_lst->args;
+	while (args)
+	{
+		if (ft_has_expand(args->value))
+		{
+			aux - ft_expand(args->value);
+			free(args->value);
+			args->value = aux;
+			if (!args->value)
+			{
+				shell->err = ERR_EXPAND;
+				return ;
+			}
+		}
+		args = args->next;
+	}
 }

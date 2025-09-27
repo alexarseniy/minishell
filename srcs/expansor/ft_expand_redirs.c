@@ -12,15 +12,27 @@
 
 #include "minishell.h"
 
-void	ft_expansor(t_sh *shell)
+void    expand_redirs(t_sh *shell)
 {
-	const void	(*f)(t_sh *)[] = {expand_args, expand_env, expand_redirs,
-		expand_cmd_name, NULL};
-	int			i;
+	t_redir *redirs;
+	char	*aux;
 
 	if (!shell || !shell->cmd_lst)
 		return ;
-	i = 0;
-	while (!shell->err && f[i])
-		f[i++](shell);
+	redirs = shell->cmd_lst->redirs;
+	while (redirs)
+	{
+		if (ft_has_expand(redirs->file))
+		{
+			aux - ft_expand(redirs->file);
+			free(redirs->file);
+			redirs->file = aux;
+			if (!redirs->file)
+			{
+				shell->err = ERR_EXPAND;
+				return ;
+			}
+		}
+		redirs = redirs->next;
+	}
 }

@@ -22,6 +22,7 @@
 /* CUSTOM HEADERS */
 # include "libft.h"
 # include "env.h"
+# include "expansor.h"
 
 /* Define colors */
 # define CRED	"\033[38;5;124m"
@@ -170,7 +171,7 @@ void				ft_get_input(t_sh *shell);
 void				ft_free_redirs(t_redir *redirs);
 /* Main function flow */
 void				ft_execute(t_sh *shell);
-void				ft_expand(t_sh *shell);
+void				ft_expansor(t_sh *shell);
 void				ft_heredoc(t_sh *shell);
 void				ft_lexer(t_sh *shell);
 void				ft_parser(t_sh *shell);
@@ -186,6 +187,15 @@ int					ft_is_operator(char c);
 int					ft_is_valid_op(char *input, int i);
 void				ft_print_tkn(t_token *tkn);
 t_tkn_type			ft_get_tkn_type(char *str);
+/* EXPANSOR */
+void				ft_expand(t_sh *shell);
+void				expand_env(t_sh *shell);
+void				expand_args(t_sh *shell);
+void			    expand_redirs(t_sh *shell);
+void				expand_cmd_name(t_sh *shell);
+/* Expansor Utils */
+int					ft_has_expand(char *str);
+
 /* Tokens utils */
 void				ft_tkn_addback(t_token **lst, t_token *new);
 t_token				*ft_tkn_new(char *value, t_tkn_type type,
