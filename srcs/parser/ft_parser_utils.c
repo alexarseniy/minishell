@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand.c                                        :+:      :+:    :+:   */
+/*   ft_parser_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 23:05:28 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/21 23:05:46 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/28 23:34:59 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/28 23:36:37 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_expansor(t_sh *shell)
+int	ft_is_asign(t_token *tkn)
 {
-	t_cmd		*cmd;
-	int			i;
-	const void	(*f)(t_sh *, t_cmd *)[] = {expand_args, expand_env,
-		expand_redirs, expand_cmd_name, NULL};
+	if (tkn->type != TKN_WORD)
+		return (0);
+	if (tkn->value[0] == '\'' || tkn->value[0] == '\"')
+		return (0);
+	if (!ft_strchr(tkn->value, '='))
+		return (0);
+	return (1);
+}
 
-	if (!shell || !shell->cmd_lst)
-		return ;
-	cmd = shell->cmd_lst;
-	while (start)
-	{
-		i = 0;
-		while (!shell->err && f[i])
-			f[i++](shell, cmd);
-	}
+int	ft_is_redir(t_token *tkn)
+{
+	if (tkn->type == TKN_REDIR_IN || tkn->type == TKN_REDIR_OUT)
+		return (1);
+	if (tkn->type == TKN_REDIR_APPEND || tkn->type == TKN_REDIR_HERE)
+		return (1);
+	return (0);
 }

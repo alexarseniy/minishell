@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_redirs.c                                 :+:      :+:    :+:   */
+/*   ft_cmd_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 23:05:28 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/21 23:05:46 by olarseni         ###   ########.fr       */
+/*   Created: 2025/09/28 23:43:24 by olarseni          #+#    #+#             */
+/*   Updated: 2025/09/28 23:44:00 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    expand_redirs(t_sh *shell, t_cmd *cmd)
+t_cmd	*ft_cmd_last(t_cmd *lst)
 {
-	t_redir *redirs;
-	char	*aux;
+	while (lst && lst->next)
+		lst = lst->next;
+	return (lst);
+}
 
-	if (!shell || !cmd)
+void	ft_cmd_addback(t_cmd **lst, t_cmd *new)
+{
+	t_cmd	*aux;
+
+	if (!lst)
 		return ;
-	redirs = cmd->redirs;
-	while (redirs)
+	aux = *lst;
+	if (!aux)
 	{
-		if (ft_has_expand(redirs->file))
-		{
-			aux - ft_expand(redirs->file);
-			free(redirs->file);
-			redirs->file = aux;
-			if (!redirs->file)
-			{
-				shell->err = ERR_EXPAND;
-				return ;
-			}
-		}
-		redirs = redirs->next;
+		*lst = new;
+		return ;
 	}
+	aux = ft_cmd_last(aux);
+	aux->next = new;
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:33:30 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/22 07:45:30 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/28 23:55:40 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 /* CUSTOM HEADERS */
 # include "libft.h"
 # include "env.h"
-# include "expansor.h"
 
 /* Define colors */
 # define CRED	"\033[38;5;124m"
@@ -93,6 +92,7 @@ typedef struct s_redir		t_redir;
 typedef struct s_here		t_here;
 typedef struct s_args		t_args;
 typedef t_error				(*t_err_wrap)(t_sh *);
+typedef void				(*t_f_expands)(t_sh *, t_cmd *);
 
 /* Typedef Structs */
 typedef struct s_args
@@ -187,18 +187,38 @@ int					ft_is_operator(char c);
 int					ft_is_valid_op(char *input, int i);
 void				ft_print_tkn(t_token *tkn);
 t_tkn_type			ft_get_tkn_type(char *str);
+/* PARSER */
+/* Parser utils */
+void				ft_print_cmd(t_cmd *cmd);
+int					ft_is_asign(t_token *tkn);
+int					ft_is_redir(t_token *tkn);
+/* CMD utils */
+t_cmd				*ft_cmd_last(t_cmd *lst);
+void				ft_cmd_addback(t_cmd **lst, t_cmd *new);
+/* CMD Add components */
+void				ft_cmd_add_redir(t_sh *sh, t_cmd *cmd, t_token *tkn,
+						char *n_tkn_value);
+void				ft_cmd_add_assign(t_sh *sh, t_cmd *cmd, t_token *tkn);
+void				ft_cmd_add_word(t_sh *sh, t_cmd *cmd, t_token *tkn);
+void				ft_cmd_addtkn(t_sh *sh, t_cmd *cmd, t_token *tkn);
+void				ft_redir_addback(t_redir **lst, t_redir *new);
+/* REDIR utils */
+t_redir				*ft_new_redir(char *value, t_redir_type type);
+t_redir				*ft_new_redir(char *value, t_redir_type type);
+/* ARGS utils */
+t_args				*ft_args_last(t_args *lst);
+void				ft_args_addback(t_args **lst, t_args *new);
 /* EXPANSOR */
-void				ft_expand(t_sh *shell);
-void				expand_env(t_sh *shell);
-void				expand_args(t_sh *shell);
-void			    expand_redirs(t_sh *shell);
-void				expand_cmd_name(t_sh *shell);
+char				*ft_expand(t_sh *shell, char *str);
+void				expand_env(t_sh *shell, t_cmd *cmd);
+void				expand_args(t_sh *shell, t_cmd *cmd);
+void				expand_redirs(t_sh *shell, t_cmd *cmd);
+void				expand_cmd_name(t_sh *shell, t_cmd *cmd);
 /* Expansor Utils */
 int					ft_has_expand(char *str);
-char *ft_get_env_value(t_sh *shell, char *str, int i);
-void    ft_realloc_expand(t_sh *shell, char **result, int *i);
-char    *ft_expand(t_sh *shell, char *str);
-
+char				*ft_get_expand_ptr(char *str);
+char				*ft_expand_ptr(t_sh *shell, char *ptr);
+char				*ft_expand(t_sh *shell, char *str);
 /* Tokens utils */
 void				ft_tkn_addback(t_token **lst, t_token *new);
 t_token				*ft_tkn_new(char *value, t_tkn_type type,

@@ -6,7 +6,7 @@
 #    By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/13 16:40:07 by olarseni          #+#    #+#              #
-#    Updated: 2025/09/22 04:17:07 by olarseni         ###   ########.fr        #
+#    Updated: 2025/09/28 23:56:59 by olarseni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,19 +36,21 @@ SRCS	=	main.c					\
 			minishell_setup_utils.c	\
 			ft_lexer.c				\
 			ft_parser.c				\
+			ft_parser_utils.c		\
+			ft_args_utils.c			\
+			ft_cmd_add_components.c	\
+			ft_cmd_utils.c			\
+			ft_print_cmd.c			\
+			ft_redir_utils.c		\
 			ft_execute.c			\
-			ft_expand.c				\
 			ft_heredoc.c			\
 			ft_delquote.c			\
 			ft_handlers.c			\
 			ft_lexer_utils_01.c		\
 			ft_tkn_utils.c			\
-			ft_expand.c				\
-			ft_expand_utils.c		\
-			ft_expand_redirs.c		\
-			ft_expand_env.c			\
-			ft_expand_cmd_name.c	\
-			ft_expand_args.c	
+			ft_expansor.c			\
+			ft_expansor_cmd_name.c	\
+			ft_expansor_utils.c
 
 # Objects
 ODIR	=	objects

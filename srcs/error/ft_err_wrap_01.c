@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 18:19:23 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/21 23:02:06 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/09/28 20:05:33 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_error	wrap_expand(t_sh *shell)
 		return (ERROR);
 	if (shell->err)
 		return (shell->err);
-	ft_expand(shell);
+	ft_expansor(shell);
 	return (shell->err);
 }
 
