@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 23:27:39 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/28 23:33:37 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/01 23:07:58 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	*ft_expand_ptr(t_sh *shell, char *ptr)
 	if (!ptr)
 		return (shell->err = ERR_EXPAND, NULL);
 	end = 0;
+	if (*ptr == '?')
+		return (ft_itoa(shell->last_exit_status));
 	while (ptr[end] && (ft_isalnum(ptr[end])
 			|| ptr[end] == '?' || ptr[end] == '_'))
 		end++;
@@ -103,13 +105,13 @@ char	*ft_expand(t_sh *shell, char *str)
 	if (!start_to_ptr)
 		return (free(expanded_ptr), NULL);
 	aux = ft_strjoin(start_to_ptr, expanded_ptr);
-	free(expanded_ptr);
-	free(start_to_ptr);
 	if (!aux)
-		return (NULL);
+		return (free(expanded_ptr), free(start_to_ptr), NULL);
 	while (*expand_ptr && (ft_isalnum(*expand_ptr)
-			|| *expand_ptr == '_' || *expand_ptr == '?'))
+			|| *expand_ptr == '_'))
+		expand_ptr++;
+	if (*expand_ptr == '?')
 		expand_ptr++;
 	aux2 = ft_strjoin(aux, expand_ptr);
-	return (free(aux), aux2);
+	return (free(aux), free(expanded_ptr), free(start_to_ptr), aux2);
 }

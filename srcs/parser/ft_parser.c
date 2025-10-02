@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 23:04:58 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/28 23:49:57 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 01:37:49 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	ft_set_assign_words(t_sh *sh, t_token *tkn)
 		else if (!flag_redir && tkn->type == TKN_WORD && (tkn->value[0] == '\''
 				|| tkn->value[0] == '"' || !ft_strchr(tkn->value, '=')))
 			flag_word = 1;
-		else if (!flag_redir && tkn->type == TKN_WORD)
+		else if (!flag_redir && tkn->type == TKN_WORD && ft_is_asign(tkn))
 			tkn->type = TKN_ASSIGN;
 		else
 			flag_redir = 0;
@@ -103,5 +103,12 @@ void	ft_parser(t_sh *shell)
 	shell->cmd_lst = ft_parsing(shell, shell->tkn);
 	if (shell->err)
 		return ;
+	printf("\033[1m \033[38;5;222m");
+	printf("\n--------------------------------------------------------------");
+	printf("\n|%42s%19s\n", "CMD nodes after parsing", "|");
+	printf("--------------------------------------------------------------\n");
+	printf("\033[0m");
+	printf("\033[38;5;180m");
 	ft_print_cmd(shell->cmd_lst);
+	printf("\033[0m");
 }

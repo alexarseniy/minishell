@@ -6,7 +6,7 @@
 #    By: olarseni <olarseni@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/13 16:40:07 by olarseni          #+#    #+#              #
-#    Updated: 2025/09/28 23:56:59 by olarseni         ###   ########.fr        #
+#    Updated: 2025/10/02 01:45:59 by olarseni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,14 @@ SRCS	=	main.c					\
 			ft_redir_utils.c		\
 			ft_execute.c			\
 			ft_heredoc.c			\
-			ft_delquote.c			\
 			ft_handlers.c			\
 			ft_lexer_utils_01.c		\
 			ft_tkn_utils.c			\
 			ft_expansor.c			\
 			ft_expansor_cmd_name.c	\
-			ft_expansor_utils.c
+			ft_expansor_utils.c		\
+			ft_delquote.c			\
+			ft_delquote_utils.c
 
 # Objects
 ODIR	=	objects

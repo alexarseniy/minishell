@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 04:00:24 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/22 04:12:48 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 01:31:46 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	ft_print_tkn(t_token *tkn)
 	i = 0;
 	while (tkn)
 	{
-		printf("TOKEN %i\n", i);
-		printf("\t|-> VALUE: %s\n", tkn->value);
-		printf("\t|-> TYPE: %s\n", type[tkn->type]);
+		printf("\033[38;5;179m\033[1mTOKEN %i\033[0m", i);
+		printf("\t\033[38;5;179m|-> VALUE: \033[0m%s\n", tkn->value);
+		printf("\t\033[38;5;179m|-> TYPE: \033[0m%s\n", type[tkn->type]);
 		tkn = tkn->next;
 		i++;
 	}

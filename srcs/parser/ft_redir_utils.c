@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 23:48:00 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/28 23:55:24 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 02:49:47 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ t_redir	*ft_new_redir(char *value, t_redir_type type)
 	new = ft_calloc(sizeof(t_redir), 1);
 	if (!new)
 		return (NULL);
-	new->file = value;
+	new->file = ft_strdup(value);
+	if (!new->file)
+		return (free(new), NULL);
 	new->type = type;
 	new->next = NULL;
 	return (new);

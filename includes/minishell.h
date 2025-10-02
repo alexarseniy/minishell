@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 15:33:30 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/28 23:55:40 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 02:13:08 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_here		t_here;
 typedef struct s_args		t_args;
 typedef t_error				(*t_err_wrap)(t_sh *);
 typedef void				(*t_f_expands)(t_sh *, t_cmd *);
+typedef void				(*t_f_delquotes)(t_sh *, t_cmd *);
 
 /* Typedef Structs */
 typedef struct s_args
@@ -219,6 +220,11 @@ int					ft_has_expand(char *str);
 char				*ft_get_expand_ptr(char *str);
 char				*ft_expand_ptr(t_sh *shell, char *ptr);
 char				*ft_expand(t_sh *shell, char *str);
+/* DELQUOTES */
+/* Delquotes utils */
+int					ft_has_quotes(char *str);
+char				*ft_delquotes(char *str);
+void				*ft_realloc(void *ptr, size_t actual_size, size_t new_size);
 /* Tokens utils */
 void				ft_tkn_addback(t_token **lst, t_token *new);
 t_token				*ft_tkn_new(char *value, t_tkn_type type,

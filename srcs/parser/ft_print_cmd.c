@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 23:36:42 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/28 23:58:54 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 01:39:00 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ft_print_redirs(t_redir *redirs)
 	const char	*red_type[] = {"REDIR_NONE", "REDIR_IN", "REDIR_OUT",
 		"REDIR_APPEND", "REDIR_HERE"};
 
-	printf("\tredirs:\n");
+	printf("\t\033[38;5;179mredirs:\033[0m\n");
 	printf("\t\t");
 	while (redirs)
 	{
@@ -29,7 +29,7 @@ static void	ft_print_redirs(t_redir *redirs)
 
 static void	ft_print_env_tmp(t_env *env_tmp)
 {
-	printf("\tenv_tmp:\n");
+	printf("\t\033[38;5;179menv_tmp:\033[0m\n");
 	printf("\t\t");
 	while (env_tmp)
 	{
@@ -41,7 +41,7 @@ static void	ft_print_env_tmp(t_env *env_tmp)
 
 static void	ft_print_args(t_args *args)
 {
-	printf("\targs:\n");
+	printf("\t\033[38;5;179margs:\033[0m\n");
 	printf("\t\t");
 	while (args)
 	{
@@ -58,12 +58,13 @@ void	ft_print_cmd(t_cmd *cmd)
 	i = 0;
 	while (cmd)
 	{
-		printf("CMD %i\n", i);
-		printf("\tcmd_name:  %s\n", cmd->cmd_name);
+		printf("\033[1m\033[38;5;179mCMD %i\033[0m\n", i);
+		printf("\t\033[38;5;179mcmd_name:\033[0m  %s\n", cmd->cmd_name);
 		ft_print_args(cmd->args);
 		ft_print_env_tmp(cmd->env_tmp);
 		ft_print_redirs(cmd->redirs);
 		i++;
 		cmd = cmd->next;
 	}
+	printf("\033[0m");
 }

@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 23:34:59 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/28 23:36:37 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 00:35:30 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_is_asign(t_token *tkn)
 	if (tkn->type != TKN_WORD)
 		return (0);
 	if (tkn->value[0] == '\'' || tkn->value[0] == '\"')
+		return (0);
+	if (!ft_isalpha(tkn->value[0]) && tkn->value[0] != '_')
 		return (0);
 	if (!ft_strchr(tkn->value, '='))
 		return (0);
