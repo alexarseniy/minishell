@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 21:33:49 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/22 07:59:24 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 04:23:44 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,22 @@ void	ft_free_redirs(t_redir *redirs)
 void	ft_clean_cmd(t_sh *sh)
 {
 	t_cmd	*aux;
+	t_args	*aux_args;
 
 	(void)aux;
 	if (!sh)
 		return ;
-/*	while (sh->cmd_lst)
+	while (sh->cmd_lst)
 	{
 		aux = sh->cmd_lst->next;
 		free(sh->cmd_lst->cmd_name);
+		while (sh->cmd_lst->args)
+		{
+			aux_args = sh->cmd_lst->args->next;
+			free(sh->cmd_lst->args->value);
+			free(sh->cmd_lst->args);
+			sh->cmd_lst->args = aux_args;
+		}
 		free(sh->cmd_lst->args);
 		sh->cmd_lst->cmd_name = NULL;
 		sh->cmd_lst->args = NULL;
@@ -70,5 +78,5 @@ void	ft_clean_cmd(t_sh *sh)
 		free(sh->cmd_lst);
 		sh->cmd_lst = aux;
 	}
-	sh->cmd_lst = NULL;*/
+	sh->cmd_lst = NULL;
 }

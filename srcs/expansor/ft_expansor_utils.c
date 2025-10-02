@@ -6,28 +6,40 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 23:27:39 by olarseni          #+#    #+#             */
-/*   Updated: 2025/10/01 23:07:58 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 04:46:11 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	ft_expand_set_quote(char **str, int i, int *is_squote,
+	int *is_dquote)
+{
+		if (!*is_squote && !*is_dquote && (*str)[i] == '\'')
+			*is_squote = 1;
+		else if (!*is_squote && !*is_dquote && (*str)[i] == '\"')
+			*is_dquote = 1;
+		else if (*is_dquote && (*str)[i] == '\"')
+			*is_dquote = 0;
+		else if (*is_squote && (*str)[i] == '\'')
+			*is_squote = 0;
+}
+
 char	*ft_get_expand_ptr(char *str)
 {
 	int	i;
 	int	is_squote;
+	int	is_dquote;
 
 	i = 0;
 	is_squote = 0;
+	is_dquote = 0;
 	if (!str)
 		return (NULL);
 	while (str[i])
 	{
-		if (!is_squote && str[i] == '\'')
-			is_squote = 1;
-		else if (is_squote && str[i] == '\'')
-			is_squote = 0;
-		else if (!is_squote && str[i] == '$' && ft_isalpha(str[i + 1]))
+		ft_expand_set_quote(&str, i, &is_squote, &is_dquote);
+		if (!is_squote && str[i] == '$' && ft_isalpha(str[i + 1]))
 			return (str + i);
 		else if (!is_squote && str[i] == '$' && str[i + 1] == '?')
 			return (str + i);
@@ -42,18 +54,17 @@ int	ft_has_expand(char *str)
 {
 	int	i;
 	int	is_squote;
+	int	is_dquote;
 
 	i = 0;
 	is_squote = 0;
+	is_dquote = 0;
 	if (!str)
 		return (0);
 	while (str[i])
 	{
-		if (!is_squote && str[i] == '\'')
-			is_squote = 1;
-		else if (is_squote && str[i] == '\'')
-			is_squote = 0;
-		else if (!is_squote && str[i] == '$' && ft_isalpha(str[i + 1]))
+		ft_expand_set_quote(&str, i, &is_squote, &is_dquote);
+		if (!is_squote && str[i] == '$' && ft_isalpha(str[i + 1]))
 			return (1);
 		else if (!is_squote && str[i] == '$' && str[i + 1] == '?')
 			return (1);

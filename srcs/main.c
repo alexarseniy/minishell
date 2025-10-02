@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 14:28:27 by olarseni          #+#    #+#             */
-/*   Updated: 2025/10/02 00:13:06 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 04:15:51 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static int	main_cmd(t_sh *shell, char *input)
 	shell->input = ft_strdup(input);
 	if (!shell->input)
 		return (ERR_STRDUP_ERR);
+	if (!shell->input[0])
+		return (shell->err);
 	while (!shell->err && *f)
 	{
 		shell->err = (*f)(shell);
@@ -39,6 +41,7 @@ static void	main_loop(t_sh *shell, int argc, char **argv)
 	{
 		if (argc > 2 && argv[2] && main_cmd(shell, argv[2]))
 			ft_exit_err(shell);
+		ft_clean(shell);
 		return ;
 	}
 	while (1)
@@ -46,7 +49,7 @@ static void	main_loop(t_sh *shell, int argc, char **argv)
 		//ft_sig_setup();
 		ft_get_input(shell);
 		i = 0;
-		while (!shell->err && shell->err_wrap[i])
+		while (!shell->err && shell->err_wrap[i] && shell->input[0])
 			shell->err_wrap[i++](shell);
 		if (shell->err)
 			ft_print_err(shell);

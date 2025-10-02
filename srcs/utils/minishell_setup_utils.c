@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 16:18:36 by olarseni          #+#    #+#             */
-/*   Updated: 2025/09/22 04:10:27 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 04:08:48 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	ft_get_input(t_sh *shell)
 	const char	*prompt = "\033[38;5;101mminishell: \033[0m";
 
 	shell->input = readline(prompt);
+	add_history(shell->input);
+	rl_on_new_line();
 	if (!shell->input)
 	{
 		shell->err = ERR_INPUT;
 		return ;
 	}
-	add_history(shell->input);
-	rl_on_new_line();
 }
