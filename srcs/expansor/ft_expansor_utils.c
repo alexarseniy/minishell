@@ -6,7 +6,7 @@
 /*   By: olarseni <olarseni@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 23:27:39 by olarseni          #+#    #+#             */
-/*   Updated: 2025/10/02 04:46:11 by olarseni         ###   ########.fr       */
+/*   Updated: 2025/10/02 04:50:08 by olarseni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 static void	ft_expand_set_quote(char **str, int i, int *is_squote,
 	int *is_dquote)
 {
-		if (!*is_squote && !*is_dquote && (*str)[i] == '\'')
-			*is_squote = 1;
-		else if (!*is_squote && !*is_dquote && (*str)[i] == '\"')
-			*is_dquote = 1;
-		else if (*is_dquote && (*str)[i] == '\"')
-			*is_dquote = 0;
-		else if (*is_squote && (*str)[i] == '\'')
-			*is_squote = 0;
+	if (!*is_squote && !*is_dquote && (*str)[i] == '\'')
+		*is_squote = 1;
+	else if (!*is_squote && !*is_dquote && (*str)[i] == '\"')
+		*is_dquote = 1;
+	else if (*is_dquote && (*str)[i] == '\"')
+		*is_dquote = 0;
+	else if (*is_squote && (*str)[i] == '\'')
+		*is_squote = 0;
 }
 
 char	*ft_get_expand_ptr(char *str)
