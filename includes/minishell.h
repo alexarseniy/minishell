@@ -18,6 +18,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <sys/wait.h>
+# include <string.h>
+# include <fcntl.h>
 
 /* CUSTOM HEADERS */
 # include "libft.h"
